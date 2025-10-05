@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import useStore from '../store/useStore'
 import ChatroomList from '../components/Dashboard/ChatroomList'
 import ChatroomView from '../components/Chat/ChatroomView'
@@ -6,6 +7,7 @@ import { Toaster } from 'react-hot-toast'
 
 export default function ChatLayout() {
   const { user, dark, setDark, logout, sidebarVisible } = useStore()
+  const navigate = useNavigate()  // ✅ navigate hook
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
@@ -26,6 +28,11 @@ export default function ChatLayout() {
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
   }, [])
+
+  const handleLogout = () => {
+    logout()              // clear user state
+    navigate('/')          // redirect to login page
+  }
 
   return (
     <div className="min-h-screen flex bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
@@ -49,7 +56,10 @@ export default function ChatLayout() {
         {/* Sidebar Footer */}
         <div className="p-3 flex justify-between items-center border-t border-gray-200 dark:border-gray-700">
           <span className="text-sm font-medium">{user?.phone}</span>
-          <button className="btn btn-sm bg-red-500 hover:bg-red-600" onClick={() => { logout(); window.location.reload(); }}>
+          <button
+            className="btn btn-sm bg-red-500 hover:bg-red-600"
+            onClick={handleLogout}   // ✅ use redirect
+          >
             Logout
           </button>
         </div>
