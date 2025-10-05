@@ -4,7 +4,7 @@ A modern chat application built with React that mimics the Gemini AI interface. 
 
 ## Live Demo
 
-[View Live Demo](https://your-deployed-link.com)
+[View Live Demo](https://aclonegemini.netlify.app/)
 
 ## Features
 
